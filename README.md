@@ -16,27 +16,28 @@ HTTP Client: http package for making API requests to Laravel backend
 
 Installation
 
-Clone the repository:
-cd laravel-backend
+1. Clone the repository using terminal or download zip file:
+            git clone https://github.com/danielwambo/invoice-backend.git
+2. cd invoice-backend
 
-Install dependencies:
+3. Install dependencies:
 composer install
 
-Set up environment variables:
+4. Set up environment variables:
 Rename .env.example to .env.
 Configure your database connection (DB_* variables) and M-Pesa sandbox credentials (MPESA_* variables).
 
-Generate application key:
+5. Generate application key:
 php artisan key:generate
 
-Run database migrations
+6. Run database migrations
 php artisan migrate
 
-Start the Laravel development server:
+7. Start the Laravel development server:
 php artisan serve
 
-Expose localhost using ngrok (if needed for M-Pesa callbacks):
+8. Expose localhost using ngrok (if needed for M-Pesa callbacks):
 ngrok http 8000
 
-Update callback URLs:
+9. Update callback URLs:
 Update M-Pesa callback URLs (CallBackURL) in TransactionController.php and ensure ngrok URL is used during development.
