@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\AuthController;
-
 use App\Http\Controllers\TransactionController;
 
 /*
@@ -18,7 +17,6 @@ use App\Http\Controllers\TransactionController;
 */
 
 // Invoices routes
-
 Route::post('/mpesa/callback', [InvoiceController::class, 'mpesaCallback'])->name('mpesa.callback');
 
 Route::get('/invoices', [InvoiceController::class, 'index']);
@@ -26,16 +24,12 @@ Route::post('/invoices', [InvoiceController::class, 'store']);
 Route::get('/invoices/{id}', [InvoiceController::class, 'show']);
 
 // Route to initiate payment for an invoice
-#Route::post('/invoices/{id}/payment', [InvoiceController::class, 'initiatePayment']);
+#Route::post('/invoices/{id}/payment', [TransactionController::class, 'initiatePayment']);
+// Route to initiate payment for an invoice
+Route::post('/invoices/{invoice}/pay', [TransactionController::class, 'initiatePayment']);
 
 // Route to fetch access token
 Route::post('/auth/token', [AuthController::class, 'getToken']);
 
 // Route for transactions
 Route::get('/transactions', [TransactionController::class, 'index']);
-// Route to initiate payment for an invoice
-Route::post('/invoices/{invoice}/pay', [TransactionController::class, 'initiatePayment'])->name('invoices.pay');
-Route::post('/transactions', [TransactionController::class, 'store']); // Record a new transaction
-
-// Route for handling M-Pesa callback
-Route::post('/mpesa/callback', [TransactionController::class, 'mpesaCallback'])->name('mpesa.callback');
