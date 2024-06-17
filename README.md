@@ -1,5 +1,5 @@
 Invoice Management System
-This repository contains the code for an Invoice Management System built with Laravel (backend API) and Flutter (frontend mobile app). This system allows users to create invoices, initiate payments, and view transaction histories.
+This repository contains the code for an Invoice Management System built with Laravel (backend API) and Flutter (frontend). This system allows users to create invoices, initiate payments, and view transaction histories.
 
 Technologies Used
 
