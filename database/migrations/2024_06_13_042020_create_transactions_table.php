@@ -14,7 +14,7 @@ class CreateTransactionsTable extends Migration
             $table->string('transaction_id');
             $table->decimal('amount', 10, 2);
             $table->string('phone');
-            $table->enum('status', ['Success', 'Failed'])->default('Success');
+            $table->enum('status', ['Pending', 'Success', 'Failed'])->default('Pending');
             $table->timestamps();
         });
     }

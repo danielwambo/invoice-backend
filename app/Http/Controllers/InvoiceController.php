@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Invoice;
-use App\Services\MpesaService;
+use Illuminate\Support\Facades\Log;
 
 class InvoiceController extends Controller
 {
@@ -12,6 +12,12 @@ class InvoiceController extends Controller
     {
         $invoices = Invoice::all();
         return response()->json($invoices);
+    }
+
+    public function webIndex()
+    {
+        $invoices = Invoice::latest()->get();
+        return view('invoices.index', compact('invoices'));
     }
 
     public function store(Request $request)
@@ -29,33 +35,11 @@ class InvoiceController extends Controller
     public function show($id)
     {
         $invoice = Invoice::findOrFail($id);
-        return response()->json($invoice);
-    }
 
-    public function initiatePayment($id, Request $request, MpesaService $mpesaService)
-    {
-        try {
-            $invoice = Invoice::findOrFail($id);
-            $phone = $request->input('phone');
-
-            $response = $mpesaService->initiatePayment($invoice->amount, $phone, $invoice->id);
-
-            return response()->json($response);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+        if (request()->wantsJson()) {
+            return response()->json($invoice);
         }
-    }
 
-
-    public function mpesaCallback(Request $request)
-    {
-        // Log the incoming callback request (optional but recommended)
-        Log::info('M-Pesa Callback Received: ' . $request->getContent());
-
-        // Process the callback data as per your application's requirements
-        // Example: Update invoice status based on the callback data
-
-        // Return a response to M-Pesa acknowledging receipt of the callback
-        return response()->json(['message' => 'M-Pesa Callback Received'], 200);
+        return view('invoices.show', compact('invoice'));
     }
 }

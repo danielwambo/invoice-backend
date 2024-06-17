@@ -9,13 +9,15 @@ class Invoice extends Model
 {
     use HasFactory;
 
-    // Specify the fields that are mass assignable
+    // Specifying the fields that are mass assignable
     protected $fillable = [
         'description', 
-        'amount'
+        'amount',
+        'payment_status',   
+        'transaction_id'    
     ];
 
-    // Define the relationship with the Transaction model
+    // Defining the relationship with the Transaction model
     public function transactions()
     {
         return $this->hasMany(Transaction::class);

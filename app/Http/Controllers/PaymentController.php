@@ -21,7 +21,7 @@ class PaymentController extends Controller
             'phone' => 'required|string',
         ]);
 
-        $amount = 100; // Set the amount for the payment, or fetch it from the invoice
+        $amount = 100; 
         $phone = $validated['phone'];
 
         try {
@@ -43,11 +43,10 @@ class PaymentController extends Controller
 
     public function mpesaCallback(Request $request)
     {
-        // Process the callback from Mpesa
-        // You can log the request or update the transaction status in your database
+     
         \Log::info('Mpesa Callback', $request->all());
 
-        // Assuming you're passing the body of the callback request
+        
         $callbackData = $request->all();
 
         // Process the callback and update the transaction status
